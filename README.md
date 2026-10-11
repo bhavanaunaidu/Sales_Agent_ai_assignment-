@@ -790,3 +790,380 @@ Project: AI Voice Agent for Home Credit Loan Against Property (LAP)
 Platform: Retell AI
 Category: Conversational AI / Voice Automation / FinTech
 Primary Goal: Automated preliminary customer qualification
+
+
+
+# 🏦 AI Voice Agent for Home Credit — Loan Against Property (LAP)
+
+### ***An Intelligent Voice-Based Customer Qualification System***
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Retell%20AI-blue?style=for-the-badge" alt="Retell AI">
+  <img src="https://img.shields.io/badge/AI-Voice%20Agent-purple?style=for-the-badge" alt="AI Voice Agent">
+  <img src="https://img.shields.io/badge/Domain-FinTech-green?style=for-the-badge" alt="FinTech">
+  <img src="https://img.shields.io/badge/Testing-Scenario%20Based-orange?style=for-the-badge" alt="Scenario Based Testing">
+</p>
+
+---
+
+## 🌟 ***Project Overview***
+
+This project presents an **AI-powered outbound voice agent** designed to contact existing Home Credit customers, introduce a Loan Against Property (LAP) offer of up to **₹75 lakh**, and perform preliminary eligibility screening through natural conversation.
+
+The agent verifies customer identity, understands customer intent, collects eligibility information, handles interruptions and corrections, and identifies customers who meet the configured qualification criteria.
+
+> **🎯 Main Goal:** Automate preliminary loan qualification while providing a professional, consistent, and customer-friendly calling experience.
+
+**Key Highlights:**
+- 🤖 Automated outbound AI calling
+- 🏠 Loan Against Property qualification
+- 🧠 Context-aware conversational memory
+- ✅ Rule-based eligibility validation
+- 🔄 Existing-loan and EMI-reduction intent detection
+- 📞 Preliminary qualification and specialist handoff workflow
+
+---
+
+## 📌 ***Table of Contents***
+
+1. [Problem Statement](#-problem-statement)
+2. [Project Objectives](#-project-objectives)
+3. [Key Features](#-key-features)
+4. [System Architecture](#-system-architecture)
+5. [Conversation Workflow](#-conversation-workflow)
+6. [Eligibility Criteria](#-eligibility-criteria)
+7. [Technology Stack](#️-technology-stack)
+8. [Project Structure](#-project-structure)
+9. [Testing and Results](#-testing-and-results)
+10. [Responsible AI and Safety](#-responsible-ai-and-safety)
+11. [Limitations](#️-limitations)
+12. [Future Enhancements](#-future-enhancements)
+13. [Conclusion](#-conclusion)
+
+---
+
+## 🎯 ***Problem Statement***
+
+Traditional loan qualification calls require human agents to ask repetitive questions, record customer information, and determine whether customers meet preliminary eligibility requirements.
+
+This manual process can be time-consuming and inconsistent.
+
+The objective of this project is to develop an AI voice agent that can:
+
+- Verify customer identity before discussing the offer.
+- Present the LAP offer professionally.
+- Collect and validate mandatory eligibility information.
+- Remember answers provided in any order.
+- Handle customer interruptions and corrections.
+- Disqualify customers immediately when mandatory rules fail.
+- Identify existing-loan and EMI-reduction enquiries.
+- Identify eligible leads for further evaluation by a senior loan expert.
+
+---
+
+## 🎯 ***Project Objectives***
+
+| No. | Objective | Expected Benefit |
+|---:|---|---|
+| 1 | Develop a structured system prompt | Consistent conversations |
+| 2 | Design a defined conversation workflow | Clear decision-making |
+| 3 | Maintain conversational context | Avoid repeated questions |
+| 4 | Apply predefined eligibility rules | Consistent qualification |
+| 5 | Prevent fabricated product information | Safer customer interactions |
+| 6 | Test normal, edge, and failure scenarios | Improved reliability |
+| 7 | Record transcripts and call evidence | Verifiable results |
+
+---
+
+## ✨ ***Key Features***
+
+| Feature | Description |
+|---|---|
+| 🤖 Intelligent Greeting | Greets customers using configured dynamic variables. |
+| 🔐 Identity Verification | Avoids disclosing the offer to an unverified person. |
+| ⏰ Callback Handling | Records a convenient callback time when the customer is busy. |
+| 🧠 Conversational Memory | Remembers information provided out of order. |
+| ✏️ Correction Handling | Uses the latest clear customer response. |
+| 🚫 Early Disqualification | Stops qualification when a mandatory rule fails. |
+| 💰 Loan Amount Validation | Explains the maximum offer of ₹75 lakh. |
+| 🔄 Intent Recognition | Detects relevant existing-loan and EMI-reduction requests. |
+| 📋 Post-Call Extraction | Structures customer details and call outcomes. |
+| 🛡️ Responsible Responses | Avoids unsupported rates, fees, and approval promises. |
+
+---
+
+## 🏗️ ***System Architecture***
+
+The system follows a conversational processing loop in which the customer's speech is interpreted, relevant information is extracted, eligibility rules are evaluated, and the next response or action is selected.
+
+```mermaid
+flowchart TD
+    A[Outbound Customer Call] --> B[Speech-to-Text]
+    B --> C[LLM and System Prompt]
+    C --> D[Extract Customer Information]
+    D --> E[Update Conversation State]
+    E --> F{Eligibility and Intent Check}
+
+    F -->|Rule Fails| G[Polite Disqualification]
+    F -->|Existing Loan or EMI Request| H[Specialist Routing]
+    F -->|Information Missing| I[Ask Next Question]
+    F -->|All Checks Pass| J[Preliminary Qualification]
+
+    I --> K[Text-to-Speech]
+    K --> B
+
+    G --> L[End Call]
+    H --> M[Transfer Integration Required]
+    J --> N[Expert Handoff Integration Required]
+```
+
+### ***Processing Components***
+
+- **Speech-to-Text:** Converts customer speech into text.
+- **Large Language Model:** Understands the customer's responses and generates suitable replies.
+- **Conversation State:** Tracks eligibility answers, corrections, and missing information.
+- **Eligibility Logic:** Applies the configured business rules.
+- **Text-to-Speech:** Converts generated responses into spoken audio.
+- **Call Actions:** Ends calls and supports routing workflows when the required integrations are configured.
+
+> **⚠️ Implementation Note:** The current prototype supports the conversational routing logic, but actual specialist transfers and CRM-based callback execution still require integration.
+
+---
+
+## 🔄 ***Conversation Workflow***
+
+### **Stage 1 — Greeting and Verification**
+- Greet the customer.
+- Verify the intended customer's identity.
+- Check whether the customer is available.
+- Record a callback preference if the customer is busy.
+
+### **Stage 2 — Offer Presentation**
+- Introduce the LAP offer of up to **₹75 lakh**.
+- Explain that the conversation is for preliminary qualification.
+- Obtain permission before continuing.
+
+### **Stage 3 — Intent Detection**
+- Detect existing loans against the relevant property.
+- Recognize requests related to existing-loan transfers or EMI reduction.
+- Stop the new-loan qualification flow when applicable.
+- Route the customer to the relevant specialist workflow.
+
+### **Stage 4 — Eligibility Screening**
+- Collect all seven eligibility categories.
+- Record answers provided out of order.
+- Clarify incomplete or contradictory responses.
+- Disqualify immediately when a mandatory rule fails.
+- Identify qualified leads only after every required check passes.
+
+---
+
+## 🏠 ***Eligibility Criteria***
+
+The following are the **configured screening rules for this prototype**, not independently verified current Home Credit lending policy.
+
+| No. | Eligibility Parameter | Accepted Criteria | Failure Action |
+|---:|---|---|---|
+| 1 | Property Type | Residential, commercial, industrial | Agricultural property: disqualify |
+| 2 | Ownership | Sole or joint | Both accepted |
+| 3 | Original Documents | Available for verification | Clearly unavailable: disqualify |
+| 4 | Loan Amount | Greater than ₹0, up to ₹75 lakh | Explain cap and obtain consent to proceed at ₹75 lakh |
+| 5 | Occupation and Income | Salaried or self-employed; applicable income received through a bank | Cash-only income: disqualify |
+| 6 | Market Value | Customer's estimated property value | Record estimate; no minimum configured |
+| 7 | Repayment Tenure | 3–15 years, inclusive | Outside range: disqualify unless an eligible tenure is accepted |
+
+### ***Final Qualification Rules***
+
+A customer can be marked **PRELIMINARILY QUALIFIED** only when:
+
+- Identity verification is complete.
+- The customer agrees to continue.
+- No applicable specialist-routing condition has been triggered.
+- All seven eligibility categories have clear answers.
+- Every applicable eligibility rule passes.
+- No unresolved contradiction affects the decision.
+- No disqualification flag is active.
+
+> **Important:** Preliminary qualification does not guarantee loan approval or disbursement.
+
+---
+
+## 🛠️ ***Technology Stack***
+
+| Technology | Purpose |
+|---|---|
+| **Retell AI** | Voice-agent configuration and telephony |
+| **Large Language Model** | Conversational understanding and response generation |
+| **Speech-to-Text** | Customer speech transcription |
+| **Text-to-Speech** | Natural spoken responses |
+| **System Prompt** | Conversation rules and eligibility logic |
+| **Knowledge Base** | Approved product information |
+| **Dynamic Variables** | Customer and call-specific personalization |
+| **Post-Call Extraction** | Structured customer data and call outcomes |
+
+### ***Agent Configuration***
+
+| Setting | Configured Value |
+|---|---|
+| Agent Type | Single-prompt agent |
+| Speaking Mode | AI speaks first |
+| Voice | Professional Indian-English female voice |
+| Languages | English; Hindi tested separately |
+| Interruption Sensitivity | 0.6 |
+| Response Wait Time | 750 ms, dynamic |
+| Reminder | After 10 seconds, up to 2 times |
+| Denoising | Enabled |
+| Transcription | Optimized for accuracy |
+| Silence Termination | 25 seconds |
+| Maximum Call Duration | 10 minutes |
+| End Call Function | Configured |
+| Post-Call Extraction | 12 fields |
+
+---
+
+## 📂 ***Recommended Project Structure***
+
+```text
+home-credit-lap-voice-agent/
+│
+├── README.md
+│
+├── docs/
+│   ├── project-documentation.md
+│   ├── system-architecture.md
+│   ├── eligibility-rules.md
+│   └── implementation-guide.md
+│
+├── prompts/
+│   └── lap_system_prompt.md
+│
+├── tests/
+│   ├── test-scenarios.md
+│   ├── test-results.md
+│   └── transcripts/
+│
+├── evidence/
+│   ├── audio/
+│   └── screenshots/
+│
+└── LICENSE
+```
+
+> **📌 Note:** This is a recommended structure. Add only the files and folders that exist in your actual repository, and update the links accordingly.
+
+---
+
+## 🧪 ***Testing and Results***
+
+The agent was evaluated using normal, edge, and failure scenarios to verify its conversational behaviour and eligibility decisions.
+
+| Test | Scenario | Expected Behaviour | Reported Status |
+|---:|---|---|---|
+| 1 | Fully eligible customer | Complete qualification and prepare handoff | ✅ Pass |
+| 2 | Agricultural property | Immediate disqualification | ✅ Pass |
+| 3 | Cash-based income | Immediate disqualification | ✅ Pass |
+| 4 | Original documents unavailable | Immediate disqualification | ✅ Pass |
+| 5 | Tenure of 2 years | Disqualification | ✅ Pass |
+| 6 | Tenure of 20 years | Disqualification | ✅ Pass |
+| 7 | Loan request of ₹90 lakh | Explain cap and seek consent for ₹75 lakh | ✅ Pass |
+| 8 | Joint ownership | Continue qualification | ✅ Pass |
+| 9 | Existing property loan | Specialist-routing workflow | ✅ Pass |
+| 10 | EMI-reduction request | Relevant specialist-routing workflow | ✅ Pass |
+| 11 | Answers out of order | Capture known answers without repetition | ✅ Pass |
+| 12 | Busy customer | Record callback preference and end call | ✅ Pass |
+| 13 | Corrected property type | Apply latest clear answer | ✅ Pass |
+| 14 | Multiple answers in one sentence | Capture details accurately | ✅ Pass |
+| 15 | Interruption about documents | Answer briefly and resume the flow | ✅ Pass |
+| 16 | Vague document response | Ask a clarifying question | ⏳ Pending |
+
+### ***Testing Summary***
+
+| Metric | Result |
+|---|---:|
+| Completed scenarios | 15 |
+| Reported passing scenarios | 15 |
+| Pending scenarios | 1 |
+| Completed scenarios with audio evidence | 11 |
+| Completed scenarios with transcript-only evidence | 4 |
+
+### ***Key Testing Observations***
+
+- Speech recognition occasionally misheard customer responses.
+- Clarification was needed when important information was uncertain.
+- The interruption scenario needs improvement to prevent unnecessary repetition.
+- EMI-reduction requests should not automatically be treated as loans against the same property without confirmation.
+- Four completed scenarios require audio evidence if recordings are available.
+- The sixteenth scenario remains pending and must be tested.
+
+> **✅ Result:** The 15 completed scenarios were reported as passing against their expected outcomes. The full test suite is not yet complete because Scenario 16 remains pending.
+
+---
+
+## 🔐 ***Responsible AI and Safety***
+
+- **Privacy First:** Do not disclose loan details before verifying the intended customer.
+- **No Fabricated Information:** Never invent interest rates, charges, or lending policies.
+- **No False Promises:** Never guarantee loan approval or disbursement.
+- **Customer Consent:** Respect customer refusals and requests to end the call.
+- **Uncertainty Handling:** Clarify incomplete or contradictory information.
+- **Consistent Decisions:** Apply the same configured rules to equivalent responses.
+- **Controlled Handoff:** Recommend handoff only when all required checks pass.
+- **Data Protection:** Store recordings and transcripts only in authorized, access-controlled locations.
+
+---
+
+## ⚠️ ***Limitations***
+
+1. Conversational state relies primarily on the system prompt and conversation history.
+2. Live specialist transfer and callback scheduling are not yet integrated.
+3. Speech recognition may misinterpret accents, names, amounts, or tenure values.
+4. Product answers depend on the approved knowledge base.
+5. Four completed scenarios currently have transcript-only evidence.
+6. Scenario 16 remains pending.
+7. The agent performs preliminary screening only and does not approve loans.
+
+---
+
+## 🔮 ***Future Enhancements***
+
+- **Structured State Management:** Store eligibility answers and decision flags in a database.
+- **CRM Integration:** Automatically save qualified leads and callback requests.
+- **Live Specialist Transfer:** Connect to an actual specialist queue.
+- **Multilingual Support:** Expand language detection and Indian-language coverage.
+- **Automated Regression Testing:** Re-run all scenarios after prompt changes.
+- **Analytics Dashboard:** Track qualification rates, objections, call durations, and disqualification reasons.
+- **Improved Speech Recognition:** Confirm critical amounts and tenure values.
+- **Monitoring and Logging:** Record action outcomes and errors for debugging.
+
+---
+
+## 🏁 ***Conclusion***
+
+The Home Credit LAP AI Voice Agent demonstrates how conversational AI can automate preliminary loan qualification through structured prompting, contextual memory, predefined eligibility rules, and customer-friendly interactions.
+
+The project focuses on **consistent decision-making, accurate information collection, reduced question repetition, and responsible customer handling**.
+
+The current prototype provides a foundation for automated lead screening. With structured state management, CRM connectivity, actual specialist-transfer functionality, and complete test evidence, the solution can be developed further toward production readiness.
+
+---
+
+## 👩‍💻 ***Project Information***
+
+| Field | Details |
+|---|---|
+| **Project Name** | AI Voice Agent for Home Credit LAP |
+| **Domain** | Conversational AI / FinTech |
+| **Platform** | Retell AI |
+| **Project Type** | AI Voice Automation |
+| **Primary Objective** | Preliminary loan eligibility screening |
+| **Documentation** | `docs/project-documentation.md` |
+| **System Prompt** | `prompts/lap_system_prompt.md` |
+| **Test Scenarios** | `tests/test-scenarios.md` |
+| **Test Results** | `tests/test-results.md` |
+
+---
+
+### ⭐ ***If you find this project useful, consider starring the repository!***
+
+*Disclaimer: This project documents a prototype for preliminary eligibility screening. The configured rules are project assumptions and should not be interpreted as verified Home Credit lending policy or a guarantee of loan approval. Protect all customer information and share only authorized testing evidence.*
+
