@@ -1,7 +1,13 @@
-Home Credit — Loan Against Property (LAP) AI Voice Agent
+# **Home Credit — Loan Against Property (LAP) AI Voice Agent**
 
-📌 Project Overview
+## **🎯 Project Objectives**
 
-This project involves designing and testing an AI-powered voice agent for Home Credit to contact existing customers and assess their initial eligibility for a Loan Against Property (LAP).
-
-The voice agent explains the loan offer after verifying the customer's identity, collects relevant eligibility information, handles customer questions, and routes qualified customers to a senior loan expert.
+**Project Name:** Home Credit LAP AI Voice Agent
+- **Platform:** Retell AI
+- **Purpose:** Assess customers' preliminary eligibility for a Loan Against Property.
+- **Maximum Loan Offer:** ₹75 lakh
+- **Build an AI Voice Agent:** Configure the agent using Retell AI.
+- **Verify Customer Identity:** Verify the customer before sharing offer details.
+- **Collect Customer Information:** Gather the required eligibility details.
+- **Validate Eligibility:** Apply the specified business rules.
+- **Route Eligible Customers:** Transfer qualified customers to a senior loan expert.
