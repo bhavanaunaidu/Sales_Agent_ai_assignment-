@@ -114,6 +114,7 @@ For the detailed implementation, prompts, and assignment documentation, please r
   
 - **Test Case 1:** Fully eligible customer.
   Customer meets every rule. Residential flat, sole owner, originals at home, 50 lakh loan, salaried with bank income, property worth 1 crore, 10-year tenure.
+  
   Explanation :All 7 questions asked once, then the senior loan expert callback message and the call ends.
   
   
