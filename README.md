@@ -1,277 +1,512 @@
-# 🚀 SalesAgents AI — Home Credit Loan Against Property (LAP) Voice Agent
+# 🤖 SalesAgents AI — Home Credit Loan Against Property (LAP) Voice Agent
 
-## 📑 Table of Contents
+<p align="center">
 
-- [1. Project Overview](#-1-project-overview)
-- [2. Problem Statement](#-2-problem-statement)
-- [3. Project Objectives](#-3-project-objectives)
-- [4. Key Features](#-4-key-features)
-- [5. System Architecture](#-5-system-architecture)
-- [6. Customer Conversation Flow](#-6-customer-conversation-flow)
-- [7. Seven Eligibility Questions](#-7-seven-eligibility-questions)
-- [8. Eligibility Decision Rules](#-8-eligibility-decision-rules)
-- [9. Conversation State Management](#-9-conversation-state-management)
-- [10. Repository Structure](#-10-repository-structure)
-- [11. Technology Stack](#-11-technology-stack)
-- [12. Installation and Execution](#-12-installation-and-execution)
-- [13. Sample Conversation](#-13-sample-conversation)
-- [14. Testing Scenarios and Results](#-14-testing-scenarios-and-results)
-- [15. Error Handling and Edge Cases](#-15-error-handling-and-edge-cases)
-- [16. Responsible AI and Limitations](#-16-responsible-ai-and-limitations)
-- [17. Future Enhancements](#-17-future-enhancements)
-- [18. Conclusion](#-18-conclusion)
+**An AI-Powered Voice Agent for Intelligent Customer Outreach and LAP Eligibility Qualification**
+
+Automating customer conversations through structured, context-aware, and rule-based AI voice interactions.
+
+</p>
 
 ---
 
-## 🎯 1. Project Overview
+## 📑 Table of Contents
 
-The **SalesAgents AI — Home Credit LAP Voice Agent** is a conversational AI solution designed to contact existing Home Credit customers, introduce a potential Loan Against Property (LAP) offer, and conduct preliminary eligibility screening through natural voice conversations.
+| S. No. | Section | Description |
+|:---:|---|---|
+| 1 | [About the Project](#-1-about-the-project) | Project overview, problem statement, objectives, and scope |
+| 2 | [Features](#-2-features) | Core capabilities and eligibility decision logic |
+| 3 | [Technologies Used](#-3-technologies-used) | Tools, frameworks, and technologies |
+| 4 | [Prerequisites](#-4-prerequisites) | Required software, dependencies, and credentials |
+| 5 | [Installation](#-5-installation) | Repository setup and installation instructions |
+| 6 | [Usage](#-6-usage) | Running the agent and understanding the conversation flow |
+| 7 | [Project Structure](#-7-project-structure) | Organization of project files and folders |
+| 8 | [Configuration](#-8-configuration) | Prompt variables, business rules, and runtime settings |
+| 9 | [Screenshots and Sample Conversations](#-9-screenshots-and-sample-conversations) | Demonstrations, transcripts, and recordings |
+| 10 | [Testing](#-10-testing) | Test scenarios and expected outcomes |
+| 11 | [Contributing](#-11-contributing) | Guidelines for improving the project |
+| 12 | [License](#-12-license) | Licensing and usage information |
 
-The agent collects seven required eligibility checklist items, understands information provided in different orders, maintains conversation context, applies predefined business rules, and identifies the appropriate next action.
+---
 
-Depending on the customer's responses, the agent can:
+## 🎯 1. About the Project
 
-- Continue the qualification process.
-- Immediately end the standard flow when a mandatory eligibility condition fails.
-- Route existing-property-loan or EMI-reduction enquiries to a loan-transfer specialist.
-- Capture a preferred callback time when the customer is unavailable.
-- Refer customers who satisfy all required preliminary checks to a senior loan expert.
+### 📌 Project Overview
 
-**Core principle:**
+The **Home Credit Loan Against Property (LAP) AI Voice Agent** is an AI-powered conversational system designed to make outbound calls to existing Home Credit customers and assess their preliminary eligibility for a Loan Against Property.
 
-> Listen intelligently. Remember context. Apply business rules consistently. Hand off responsibly.
+The agent introduces the potential loan offer, collects customer information through a natural conversation, evaluates the information against predefined business rules, and determines whether the customer can proceed to the next stage of the qualification process.
 
-This project demonstrates the practical application of prompt engineering, conversational AI, structured state management, business-rule validation, and scenario-based testing.
+The system is designed to behave like a professional voice-based customer service representative. It follows a structured conversation flow while remembering information already provided by the customer, handling interruptions, responding to relevant questions, and avoiding unnecessary repetition.
 
-## 🔍 2. Problem Statement
+The potential loan amount covered by this assignment is **up to ₹75,00,000 (₹75 lakh)**, subject to preliminary eligibility checks and subsequent verification.
 
-Traditional outbound loan qualification can involve repetitive questions, manual data collection, inconsistent screening, and delays in identifying the correct customer journey.
+### 💡 Problem Statement
 
-A conventional scripted bot may also struggle when customers interrupt, provide several answers together, correct previous information, or ask questions unrelated to the current eligibility step.
+Traditional outbound loan qualification calls can require significant manual effort. Agents must ask multiple questions, record customer responses, validate eligibility criteria, and determine the appropriate next step.
 
-These challenges can result in poor customer experience, repeated questions, inaccurate qualification, and premature handoffs.
+This process can result in:
 
-### 💡 Proposed Solution
+- Repeated questions when information is provided out of order.
+- Inconsistent application of eligibility criteria.
+- Incorrect handling of customer interruptions.
+- Missed or incomplete customer information.
+- Unclear outcomes for customers who do not meet the requirements.
+- Delays in routing qualified customers to the next stage.
 
-The proposed AI voice agent combines a structured conversation flow with contextual information extraction and explicit eligibility rules.
+The proposed AI voice agent addresses these challenges through a structured, context-aware, and rule-driven conversational workflow.
 
-Instead of treating each customer response as an isolated answer, the agent identifies all relevant facts, updates the qualification state, validates mandatory conditions, and asks only the earliest unanswered checklist question.
+### 🎯 Project Objectives
 
-This approach aims to improve consistency, reduce unnecessary repetition, and ensure that qualification and handoff decisions follow the defined assignment requirements.
+1. Automate outbound customer conversations regarding LAP.
+2. Collect all required eligibility information through natural dialogue.
+3. Remember details supplied earlier, even when the customer answers questions out of order.
+4. Apply predefined qualification and disqualification rules consistently.
+5. Handle loan amounts exceeding the stated limit without automatically rejecting the customer.
+6. Identify existing property loans and EMI-reduction requests that require specialist assistance.
+7. Handle busy customers by requesting a convenient callback time.
+8. Respond to customer questions using available and verified information.
+9. Minimize repeated questions and maintain conversational continuity.
+10. Generate a clear preliminary qualification outcome.
 
-## 🎯 3. Project Objectives
+### 🏦 Business Use Case
 
-The primary objectives are to:
-
-1. **Automate outbound qualification:** Introduce the LAP offer to existing customers through voice conversations.
-2. **Capture seven eligibility items:** Collect all mandatory qualification information without skipping required checks.
-3. **Maintain contextual memory:** Recognize and retain information provided out of sequence.
-4. **Enforce business rules:** Apply property, documentation, income, loan amount, and tenure criteria consistently.
-5. **Handle conversational interruptions:** Respond to relevant questions, clarifications, and diversions before resuming the checklist.
-6. **Detect alternate requirements:** Identify existing property loans and EMI-reduction enquiries.
-7. **Support callback handling:** Capture the customer's preferred time when they are busy.
-8. **Control handoffs:** Refer eligible prospects to a senior loan expert only after all seven items have been answered and all applicable checks have passed.
-9. **Validate reliability:** Evaluate the agent through normal, negative, and edge-case test scenarios.
-
-## ✨ 4. Key Features
-
-| Feature | Description |
+| Parameter | Description |
 |---|---|
-| 🗣️ Natural Voice Interaction | Uses short, conversational responses instead of rigid yes/no questions. |
-| 🧠 Contextual Information Extraction | Captures multiple facts from a single customer utterance. |
-| 🔄 Sequential Qualification | Asks the first missing checklist item while preserving the required seven-item process. |
-| ⚖️ Rule-Based Validation | Applies explicit eligibility criteria to customer responses. |
-| 🚫 Immediate Disqualification | Stops the standard flow when a mandatory condition fails. |
-| 🔀 Loan-Transfer Detection | Separates existing-loan and EMI-reduction requests from fresh LAP enquiries. |
-| ⏰ Callback Handling | Captures a suitable callback time when the customer is busy. |
-| 💬 Diversion Management | Handles questions without inventing unsupported product information. |
-| ✍️ Correction Handling | Updates previously captured information when the customer clearly corrects it. |
-| 🤝 Human Handoff | Routes preliminarily qualified customers to a senior loan expert. |
-| 🧪 Scenario-Based Testing | Covers eligible, ineligible, ambiguous, interrupted, and exceptional conversations. |
+| Business | Home Credit |
+| Product | Loan Against Property (LAP) |
+| Agent Type | AI-powered outbound voice agent |
+| Target Audience | Existing Home Credit customers |
+| Maximum Loan Amount | Up to ₹75 lakh |
+| Primary Objective | Preliminary eligibility qualification |
+| Interaction Style | Conversational, professional, and customer-friendly |
+| Final Outcome | Preliminary qualification, disqualification, specialist routing, or callback |
+| Approval Status | Final loan approval is subject to further assessment and verification |
 
-## 🏗️ 5. System Architecture
-
-The proposed architecture separates conversational understanding, state tracking, eligibility validation, and final routing.
+### 🔄 High-Level Workflow
 
 ```mermaid
 flowchart TD
-    A([Outbound Call]) --> B[Customer Verification]
+    A([Start Outbound Call]) --> B[Introduce Home Credit LAP Offer]
     B --> C{Customer Available?}
 
-    C -- No --> D[Capture Callback Time]
-    D --> Z([End Call])
+    C -- No --> D[Ask for Callback Time]
+    D --> E([End Call])
 
-    C -- Yes --> E[Present LAP Offer]
-    E --> F{Existing Loan or EMI Reduction?}
+    C -- Yes --> F[Collect Customer Information]
+    F --> G[Extract and Store Responses]
+    G --> H{Existing Loan or EMI Reduction?}
 
-    F -- Yes --> G[Loan-Transfer Specialist Flow]
-    G --> Z
+    H -- Yes --> I[Route to Loan Transfer Specialist]
+    I --> E
 
-    F -- No --> H[Initialize Qualification State]
-    H --> I[Extract Facts from Customer Speech]
-    I --> J[Update Conversation State]
-    J --> K{Mandatory Eligibility Failure?}
+    H -- No --> J[Validate Eligibility Rules]
+    J --> K{Disqualifying Condition?}
 
-    K -- Yes --> L[Explain Ineligibility]
-    L --> Z
+    K -- Yes --> L[Explain Outcome Politely]
+    L --> E
 
-    K -- No --> M{All 7 Items Complete?}
+    K -- No --> M{All Required Details Collected?}
     M -- No --> N[Ask First Missing Question]
-    N --> I
+    N --> F
 
-    M -- Yes --> O[Validate All Eligibility Rules]
-    O --> P[Senior Loan Expert Handoff]
-    P --> Z
+    M -- Yes --> O[Complete Preliminary Qualification]
+    O --> P[Route to Next Stage]
+    P --> E
 ```
 
-### Architecture Components
+---
 
-**Conversation Interface:** Manages the greeting, verification, offer presentation, and customer dialogue.
+## ✨ 2. Features
 
-**Language Understanding:** Interprets natural speech, extracts facts, recognizes corrections, and detects customer intent.
+### 2.1 AI-Powered Outbound Calling
 
-**Conversation State:** Tracks which checklist items have been answered, which remain unknown, and which answers require clarification.
+The agent initiates a conversation with existing customers and introduces the Loan Against Property offering in a professional and customer-friendly manner.
 
-**Eligibility Logic:** Validates the captured information against the specified business rules.
+It should clearly communicate the purpose of the call without implying that a loan is already approved.
 
-**Routing and Handoff:** Determines whether to continue, disqualify, capture a callback, direct an existing-loan case to a specialist, or hand off a qualified prospect.
+### 2.2 Sequential Eligibility Assessment
 
-*The diagram represents the proposed logical design. The actual components depend on the voice-agent platform and implementation used.*
+The agent collects the information required for preliminary qualification using a predefined checklist.
 
-## 🔄 6. Customer Conversation Flow
+| No. | Eligibility Parameter | Accepted Condition | Disqualification or Alternative Action |
+|:---:|---|---|---|
+| 1 | Property Type | Residential, Commercial, or Industrial | Agricultural property results in disqualification |
+| 2 | Property Ownership | Sole or Joint ownership | Neither ownership type can be assumed; clarify if unclear |
+| 3 | Original Property Documents | Original documents are available | Unavailable original documents result in disqualification |
+| 4 | Loan Amount | Up to ₹75 lakh | If above ₹75 lakh, explain the limit and ask whether the customer wants to continue with ₹75 lakh |
+| 5 | Occupation and Income Mode | Salaried or Self-employed; income received through a bank | Cash income results in disqualification |
+| 6 | Property Market Value | Customer provides the property's market value | Record the value; do not invent a minimum threshold |
+| 7 | Loan Tenure | 3 to 15 years, inclusive | Tenure below 3 years or above 15 years results in disqualification |
 
-The agent follows a controlled but flexible conversation journey.
+**Important:** The property market value is collected as an eligibility input. No minimum market value threshold is specified in this assignment, so the agent must not invent one.
 
-| Stage | Agent Action | Expected Outcome |
-|---|---|---|
-| 1. Greeting | Introduce the agent and identify the intended customer. | Verification |
-| 2. Availability | Determine whether the customer can talk. | Continue or callback |
-| 3. Offer Presentation | Explain the potential LAP offer and preliminary screening purpose. | Customer engagement |
-| 4. Intent Detection | Check for an existing property loan or EMI-reduction requirement. | Fresh LAP or specialist route |
-| 5. Information Capture | Collect all seven checklist items. | Qualification data |
-| 6. Eligibility Validation | Apply the specified rules after each relevant answer. | Continue or disqualify |
-| 7. Completion Check | Confirm all seven items have been answered. | Complete preliminary assessment |
-| 8. Final Routing | Refer a qualifying customer to a senior loan expert. | Human handoff |
-| 9. Termination | End the call politely after the appropriate outcome. | Call closed |
+### 2.3 Smart Conversation Memory
 
-**Important:** Existing-loan detection and mandatory disqualification take priority over continuing the ordinary qualification questionnaire.
+The agent remembers information provided earlier in the conversation.
 
-## 📋 7. Seven Eligibility Questions
+For example, if the customer mentions that the property is commercial before being asked about the property type, the agent stores that information and does not ask the same question again.
 
-The qualification checklist contains seven items. Item 5 combines occupation and income mode.
+### 2.4 Out-of-Order Response Handling
 
-| No. | Question | Information Required |
+The agent does not require customers to answer questions in a fixed order.
+
+It extracts all relevant details from each response, updates the conversation state, and asks only for the next missing item.
+
+### 2.5 Intelligent Loan Amount Handling
+
+If a customer requests an amount exceeding ₹75 lakh, the agent should explain the maximum amount covered by the offer and ask whether the customer wishes to continue with ₹75 lakh.
+
+- If the customer agrees, record ₹75 lakh as the amount to proceed with.
+- If the customer declines, politely end the standard qualification flow.
+- If the customer is unsure, clarify the choice without assuming consent.
+
+The agent must not automatically disqualify the customer solely because the initial requested amount exceeds ₹75 lakh.
+
+### 2.6 Specialist Routing
+
+Customers who indicate that they already have a loan against the property or want to reduce their existing EMI should be routed to the appropriate loan-transfer specialist.
+
+The agent should stop the standard LAP qualification process after identifying this requirement.
+
+### 2.7 Callback Management
+
+If a customer is busy, the agent should:
+
+1. Acknowledge that the customer is unavailable.
+2. Ask for a suitable callback time.
+3. Record the requested callback time.
+4. End the current call politely.
+
+### 2.8 Context-Aware Responses
+
+The agent can respond to relevant customer questions using the available knowledge base or retrieval-augmented generation (RAG) context.
+
+If the answer is unavailable, the agent should acknowledge the limitation rather than invent information.
+
+### 2.9 Interruption Handling
+
+When a customer interrupts or changes the topic, the agent should respond briefly and return to the first unanswered eligibility question.
+
+### 2.10 Clear Qualification Outcomes
+
+The agent should maintain a clear distinction between:
+
+- Preliminary qualification.
+- Disqualification under a stated rule.
+- Specialist routing.
+- Callback scheduling.
+- Incomplete assessment.
+- Final loan approval, which is outside the agent's preliminary qualification decision.
+
+---
+
+## 🛠️ 3. Technologies Used
+
+The following table lists technologies that may be used to implement this project. Replace the examples with the tools actually used in your repository.
+
+| Technology | Purpose |
+|---|---|
+| Large Language Model (LLM) | Understand customer responses and generate conversational replies |
+| System Prompt Engineering | Define agent identity, behavior, business rules, and conversation flow |
+| Python or JavaScript/TypeScript | Implement supporting application logic, if applicable |
+| Speech-to-Text (STT) | Convert customer speech into text |
+| Text-to-Speech (TTS) | Convert agent responses into spoken audio |
+| Voice Agent Platform | Manage calls and real-time voice interactions |
+| REST APIs | Connect the agent with external services, if required |
+| RAG / Knowledge Base | Retrieve approved information to answer customer questions |
+| JSON | Represent structured customer data and eligibility state |
+| Git | Track source-code changes |
+| GitHub | Host the project repository and documentation |
+
+### Technology Architecture
+
+```text
+Customer
+   |
+   v
+Outbound Calling Platform
+   |
+   v
+Speech Recognition (STT)
+   |
+   v
+LLM + System Prompt
+   |
+   +---- Conversation State
+   |
+   +---- Eligibility Rules
+   |
+   +---- Knowledge Base / RAG
+   |
+   v
+Response Generation
+   |
+   v
+Text-to-Speech (TTS)
+   |
+   v
+Customer
+```
+
+**Note:** If your assignment was implemented entirely using a voice-agent platform's prompt editor, do not claim that you developed separate Python code, APIs, STT, or TTS components unless you actually did so.
+
+---
+
+## 📋 4. Prerequisites
+
+Before running or evaluating the project, ensure that the following requirements are met.
+
+### Software Requirements
+
+- A computer with internet access.
+- A modern web browser.
+- Access to the selected AI or voice-agent platform.
+- Git and GitHub, if using a repository-based workflow.
+- Python or Node.js, only if required by your implementation.
+- An audio player for reviewing test recordings.
+- A text editor or IDE, such as Visual Studio Code.
+
+### Account and Access Requirements
+
+- Access to the selected LLM or voice-agent platform.
+- API credentials, if the implementation uses external APIs.
+- A configured voice and language.
+- Access to approved business information for the LAP product.
+- Test audio files or simulated customer conversations.
+
+### Business Rule Requirements
+
+The agent must have access to the following predefined rules:
+
+- Eligible property types.
+- Accepted ownership types.
+- Original property document availability requirements.
+- Maximum loan amount of ₹75 lakh.
+- Accepted occupation and income modes.
+- Property market value collection requirement.
+- Loan tenure range of 3–15 years.
+- Existing-loan and EMI-reduction specialist routing rules.
+
+### Security Requirements
+
+- Store API keys and credentials securely.
+- Do not commit secrets to GitHub.
+- Use synthetic customer data for public demonstrations.
+- Ensure that actual customer recordings are shared only when authorized and appropriately protected.
+
+---
+
+## 📦 5. Installation
+
+Installation depends on the platform used to build the voice agent. The following steps cover a typical GitHub-based project.
+
+### Step 1: Clone the Repository
+
+Replace the example URL with your actual repository URL.
+
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+```
+
+### Step 2: Navigate to the Project Folder
+
+```bash
+cd YOUR-REPOSITORY
+```
+
+### Step 3: Review the Repository
+
+```bash
+git status
+```
+
+Review the files and identify the system prompt, configuration files, test cases, and documentation.
+
+### Step 4: Install Dependencies
+
+For a Python implementation that includes a `requirements.txt` file:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Activate the environment on macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+For a Node.js implementation with a `package.json` file:
+
+```bash
+npm install
+```
+
+**Important:** Run only the installation commands relevant to your actual project. If the project is configured entirely through an online voice-agent platform, local dependency installation may not be required.
+
+### Step 5: Configure Credentials
+
+Create a local environment file if required by your implementation.
+
+Example `.env`:
+
+```dotenv
+LLM_API_KEY=your_api_key_here
+VOICE_PLATFORM_API_KEY=your_voice_platform_api_key_here
+```
+
+Do not use real credentials in this example or commit the actual `.env` file to GitHub.
+
+### Step 6: Configure the Agent
+
+Import or paste the system prompt into the selected voice-agent platform. Configure the model, voice, language, business context, and any required integrations.
+
+### Step 7: Run or Deploy
+
+Use the platform's test interface or the actual application entry point defined in your project.
+
+For example, only if your Python application contains `main.py`:
+
+```bash
+python main.py
+```
+
+For example, only if your Node.js project defines a start script:
+
+```bash
+npm start
+```
+
+### Step 8: Validate the Setup
+
+Before using the agent, test a simulated conversation to confirm that it:
+
+- Introduces the LAP offer correctly.
+- Captures customer responses.
+- Remembers information provided out of order.
+- Applies the eligibility rules correctly.
+- Handles customer questions and interruptions.
+- Produces the correct preliminary outcome.
+
+---
+
+## ▶️ 6. Usage
+
+### 6.1 Starting the Agent
+
+1. Open the configured voice-agent platform or application.
+2. Load the LAP qualification system prompt.
+3. Provide the required runtime variables.
+4. Confirm the configured language and voice.
+5. Start a simulated or authorized test call.
+6. Review the conversation transcript and qualification result.
+
+### 6.2 Conversation Workflow
+
+The agent should follow this general sequence:
+
+| Step | Action | Expected Behavior |
 |:---:|---|---|
-| 1 | What type of property do you own? | Residential, Commercial, Industrial, or Agricultural |
-| 2 | Is the property solely owned or jointly owned? | Sole or Joint |
-| 3 | Are the original property documents available for verification? | Available or Unavailable |
-| 4 | What loan amount are you looking for? | Requested amount in rupees |
-| 5 | Are you salaried or self-employed, and is your income received through a bank or in cash? | Occupation and income mode |
-| 6 | Approximately what is the current market value of the property? | Estimated market value |
-| 7 | What repayment tenure would you prefer? | Desired tenure in years |
+| 1 | Introduction | Identify the company and explain the purpose of the call |
+| 2 | Availability check | If busy, ask for a callback time and end the call |
+| 3 | Context extraction | Identify facts already provided by the customer |
+| 4 | Specialist check | Route existing-loan or EMI-reduction requests appropriately |
+| 5 | Eligibility collection | Ask for missing information in the prescribed order |
+| 6 | Rule validation | Apply the stated eligibility and disqualification rules |
+| 7 | Missing information check | Ask only for unanswered questions |
+| 8 | Outcome | Communicate preliminary qualification or the appropriate alternative |
+| 9 | Closure | End politely and preserve the correct call outcome |
 
-### Questioning Strategy
+### 6.3 Sample Conversation: Eligible Customer
 
-The agent must collect every required item but should not mechanically ask each question in a fixed sequence when the customer has already supplied relevant information.
+**AI Agent:** Hello, may I speak with the customer? I am calling on behalf of Home Credit regarding a potential Loan Against Property offer. Is this a convenient time to speak?
 
-For example, if a customer states that their property is residential, jointly owned, and worth ₹1 crore, the agent should capture all three facts and continue with the first missing item.
+**Customer:** Yes, I can talk.
 
-## ⚖️ 8. Eligibility Decision Rules
+**AI Agent:** Thank you. I will ask a few brief questions to understand whether you may qualify for the offer. What type of property would you like to use?
 
-The following rules define the expected preliminary qualification behavior for this assignment.
+**Customer:** It is a commercial property, jointly owned by me and my brother.
 
-| Eligibility Field | Accepted Condition | Failure or Exception |
-|---|---|---|
-| Property Type | Residential, Commercial, Industrial | Agricultural → Disqualify |
-| Ownership | Sole or Joint | Neither ownership type is inherently disqualifying |
-| Original Documents | Originals available for verification | Originals unavailable → Disqualify |
-| Loan Amount | Up to ₹75 lakh | Above ₹75 lakh → Offer ₹75 lakh alternative |
-| Occupation | Salaried or Self-employed | Other occupation categories require clarification against the assignment rules |
-| Income Mode | Bank | Cash → Disqualify |
-| Property Market Value | Capture customer's estimate | No minimum value threshold specified |
-| Tenure | 3–15 years inclusive | Below 3 or above 15 years → Disqualify |
+**AI Agent:** Thank you. I have recorded that it is a commercial property with joint ownership. Are the original property documents available?
 
-### Loan Amount Above ₹75 Lakh
+**Customer:** Yes, we have them.
 
-If the customer requests an amount exceeding ₹75 lakh, the agent must explain the offer limit and ask whether they wish to proceed with ₹75 lakh.
+**AI Agent:** Great. What loan amount are you looking for?
 
-- **Accepts:** Update the requested amount to ₹75 lakh and continue.
-- **Declines:** End the qualification flow politely.
-- **Unclear response:** Clarify before proceeding.
+**Customer:** ₹40 lakh.
 
-The agent must not automatically disqualify a customer merely because the initial request exceeds the offer limit.
+**AI Agent:** Thank you. Are you salaried or self-employed, and is your income received through a bank or in cash?
 
-### Immediate Disqualification
+**Customer:** I am self-employed, and my income is received through the bank.
 
-When a confirmed answer violates a mandatory criterion:
+**AI Agent:** Understood. What is the approximate market value of your property?
 
-1. Stop the normal qualification sequence.
-2. Explain politely that the customer does not meet the criteria for this specific offer.
-3. Avoid asking additional eligibility questions.
-4. End the call.
+**Customer:** Around ₹90 lakh.
 
-### Final Handoff Gate
+**AI Agent:** Thank you. What loan tenure would you prefer, between 3 and 15 years?
 
-The agent may initiate the senior-expert handoff only when:
+**Customer:** Ten years.
 
-- All seven checklist items are answered.
-- All mandatory eligibility rules pass.
-- No unresolved disqualifying condition remains.
-- The enquiry is not an existing-loan or EMI-reduction case requiring a specialist route.
+**AI Agent:** Thank you for sharing those details. Based on the information provided, you meet the stated preliminary qualification criteria. This is not a final loan approval; further assessment and verification will be required.
 
-The handoff indicates preliminary qualification, not final loan approval.
+### 6.4 Sample Conversation: Loan Amount Above the Limit
 
-## 🧠 9. Conversation State Management
+**Customer:** I need ₹90 lakh.
 
-The agent maintains an internal representation of the customer's qualification progress.
+**AI Agent:** The maximum loan amount covered by this offer is ₹75 lakh. Would you like to continue the preliminary assessment for ₹75 lakh?
 
-Example:
+**Customer:** Yes, that is fine.
 
-```yaml
-customer_verified: UNKNOWN
-customer_available: UNKNOWN
+**AI Agent:** Thank you. I will record ₹75 lakh as the amount to proceed with and continue with the remaining eligibility questions.
 
-property_type: UNKNOWN
-ownership_status: UNKNOWN
-documents_available: UNKNOWN
-loan_amount: UNKNOWN
-occupation: UNKNOWN
-income_mode: UNKNOWN
-market_value: UNKNOWN
-tenure: UNKNOWN
+### 6.5 Sample Conversation: Agricultural Property
 
-existing_property_loan: UNKNOWN
-emi_reduction_request: UNKNOWN
+**Customer:** The property is agricultural land.
 
-disqualified: false
-transfer_required: false
-callback_time: UNKNOWN
-qualification_complete: false
-handoff_eligible: false
-```
+**AI Agent:** Thank you for clarifying. Under the eligibility criteria for this offer, agricultural property does not qualify. I appreciate your time and will conclude the assessment here.
 
-### State Management Algorithm
+### 6.6 Sample Conversation: Cash Income
 
-After every customer utterance:
+**Customer:** I am self-employed, but I receive my income in cash.
 
-1. Extract all relevant facts and customer intent.
-2. Resolve clear corrections using the latest valid answer.
-3. Detect existing-loan or EMI-reduction intent.
-4. Validate any mandatory eligibility conditions.
-5. Update the stored state.
-6. Identify the first unanswered checklist item.
-7. Ask only the next required question.
-8. If all items are complete, validate the final state and route accordingly.
+**AI Agent:** Thank you for sharing that information. Under the eligibility criteria for this offer, income must be received through a bank. Based on this requirement, I am unable to proceed with the standard qualification process.
 
-**Core design principle:**
+### 6.7 Sample Conversation: Existing Property Loan
 
-`EXTRACT → VALIDATE → UPDATE → FIND FIRST MISSING ITEM → RESPOND`
+**Customer:** I already have a loan against this property, and I want to reduce my EMI.
 
-Unknown or ambiguous information must remain unknown until clarified. The agent must not invent missing answers or treat uncertainty as confirmed eligibility.
+**AI Agent:** I understand. Since you are looking to reduce the EMI on an existing property loan, I will direct your request to the appropriate loan-transfer specialist for further assistance.
 
-## 📂 10. Repository Structure
+### 6.8 Sample Conversation: Customer Is Busy
 
-The following is a recommended repository layout. Adapt it to the files that actually exist in your GitHub repository.
+**Customer:** I am busy right now.
+
+**AI Agent:** Certainly. What would be a convenient time for us to call you back?
+
+**Customer:** Tomorrow at 11 AM.
+
+**AI Agent:** Thank you. I have recorded your requested callback time as tomorrow at 11 AM. Have a good day.
+
+**Implementation note:** The callback must be scheduled only if the system supports scheduling and the required date and time are resolved correctly. Otherwise, record the requested callback time for follow-up.
+
+---
+
+## 🗂️ 7. Project Structure
+
+The following is a suggested repository structure. Adapt it to match your actual files.
 
 ```text
 salesagents-ai-lap-voice-agent/
@@ -279,236 +514,410 @@ salesagents-ai-lap-voice-agent/
 ├── README.md
 │
 ├── prompts/
-│   └── system_prompt.md
+│   └── lap_system_prompt.md
 │
-├── documentation/
-│   ├── requirements_and_business_rules.md
-│   ├── conversation_flow.md
-│   └── state_management.md
+├── config/
+│   └── eligibility_rules.json
+│
+├── src/
+│   ├── main.py
+│   ├── conversation_manager.py
+│   ├── eligibility_checker.py
+│   └── voice_agent.py
 │
 ├── tests/
-│   ├── test_scenarios.md
-│   ├── expected_results.md
+│   ├── test_eligibility.md
+│   ├── test_conversations.md
 │   └── test_results.md
 │
 ├── recordings/
-│   └── recording_links.md
+│   └── README.md
 │
 ├── transcripts/
-│   └── sample_transcript.md
+│   └── README.md
 │
-└── submission/
-    └── final_submission_checklist.md
+├── docs/
+│   ├── architecture.md
+│   └── conversation_flow.md
+│
+├── .env.example
+├── .gitignore
+└── requirements.txt
 ```
 
-### Directory Guide
+### File and Folder Descriptions
 
-| Directory/File | Purpose |
+| File or Folder | Purpose |
 |---|---|
-| `README.md` | Project overview, architecture, rules, and testing summary |
-| `prompts/` | Complete system prompt and agent instructions |
-| `documentation/` | Requirements, workflow, and design decisions |
-| `tests/` | Test cases and expected versus observed behavior |
-| `recordings/` | Links to actual call recordings and supporting logs |
-| `transcripts/` | Transcripts from completed test calls |
-| `submission/` | Final assignment deliverables and review checklist |
-
-## 🛠️ 11. Technology Stack
-
-Use this table to document the actual technologies used in your implementation.
-
-| Component | Technology | Purpose |
-|---|---|---|
-| Prompt Engineering | System prompt and structured instructions | Define conversational behavior and business rules |
-| Voice Agent Platform | Retell AI, Bolna, or the platform actually used | Execute voice conversations |
-| Language Model | Actual configured model | Understand responses and extract facts |
-| Speech Recognition | Platform-provided or configured STT | Convert customer speech into text |
-| Text-to-Speech | Platform-provided or configured TTS | Generate spoken agent responses |
-| State Management | Platform state, structured variables, or application code | Maintain qualification progress |
-| Eligibility Validation | Prompt logic and/or deterministic application rules | Enforce eligibility conditions |
-| Testing | Recorded calls, transcripts, and scenario matrix | Evaluate performance |
-
-Do not list tools, APIs, models, or programming languages as implemented unless you actually used them.
-
-## ⚙️ 12. Installation and Execution
-
-This is a prompt-engineering assignment, so the execution procedure depends on the platform used.
-
-### Platform-Based Implementation
-
-1. Open your selected voice-agent platform.
-2. Create or configure the voice agent.
-3. Add the completed system prompt from `prompts/system_prompt.md`.
-4. Configure the required variables, language, voice, and call settings.
-5. Run a controlled test using a permitted test customer or simulation.
-6. Review the call recording, transcript, and qualification outcome.
-7. Repeat the process for the remaining test scenarios.
-8. Record observed results in `tests/test_results.md`.
-
-### Optional Local Documentation Workflow
-
-If the repository contains only Markdown documentation, no Python environment or dependency installation is required to read the files. GitHub will render `README.md` automatically.
-
-If executable code is included, add the actual dependency file and the appropriate installation and execution commands.
-
-## 💬 13. Sample Conversation
-
-The following is an illustrative happy-path conversation.
-
-**Agent:** Hello, may I speak with Rahul?
-
-**Customer:** Yes, this is Rahul.
-
-**Agent:** Thank you, Rahul. I'm calling from Home Credit regarding a potential Loan Against Property offer for our valued customers. The offer is available for up to ₹75 lakh, subject to eligibility. May I ask you a few questions to check whether it suits your requirements?
-
-**Customer:** Sure.
-
-**Agent:** What type of property do you own?
-
-**Customer:** It's a residential house, jointly owned with my wife, and worth around ₹1 crore.
-
-**Agent:** Thank you. I've noted that it's a residential property, jointly owned, with an estimated market value of ₹1 crore. Are the original property documents available for verification?
-
-**Customer:** Yes, the originals are available.
-
-**Agent:** Great. What loan amount are you looking for?
-
-**Customer:** Around ₹50 lakh.
-
-**Agent:** Are you salaried or self-employed, and is your income received through a bank or in cash?
-
-**Customer:** I'm salaried, and my salary comes into my bank account.
-
-**Agent:** What repayment tenure would you prefer?
-
-**Customer:** Ten years.
-
-**Agent:** Thank you for sharing those details. Your responses meet the preliminary criteria for this offer. A senior loan expert will contact you to discuss the next steps and the applicable interest rate.
-
-**Expected result:** All seven checklist items are captured, all specified criteria pass, and the customer is referred for a senior-expert discussion.
-
-*This example is illustrative and does not represent an actual call or guarantee loan approval.*
-
-## 🧪 14. Testing Scenarios and Results
-
-The project should be evaluated using both standard and adversarial conversations.
-
-| Test ID | Scenario | Expected Behavior |
-|---|---|---|
-| T01 | Fully eligible customer | Complete checklist and hand off |
-| T02 | Agricultural property | Immediate disqualification |
-| T03 | Cash-based income | Immediate disqualification |
-| T04 | Original documents unavailable | Immediate disqualification |
-| T05 | Tenure below 3 years | Disqualification |
-| T06 | Tenure above 15 years | Disqualification |
-| T07 | Loan request above ₹75 lakh | Offer the ₹75 lakh alternative |
-| T08 | Joint ownership | Continue |
-| T09 | Existing property loan | Specialist route and end standard flow |
-| T10 | EMI-reduction requirement | Specialist route and end standard flow |
-| T11 | Out-of-order answers | Capture all provided facts |
-| T12 | Customer is busy | Capture callback preference and end |
-| T13 | Contradictory answers | Apply the latest clear correction |
-| T14 | Ambiguous documentation | Ask for clarification |
-| T15 | Interest-rate question | Avoid inventing rates |
-| T16 | Customer interrupts | Respond briefly and resume |
-| T17 | Customer declines ₹75 lakh | End qualification |
-| T18 | All eligibility checks complete | Handoff only after final validation |
-
-### Test Results Template
-
-| Test ID | Expected Result | Actual Result | Status | Notes |
-|---|---|---|---|---|
-| T01 | Complete qualification and handoff | Pending execution | Not run | Record after testing |
-| T02 | Immediate disqualification | Pending execution | Not run | Record after testing |
-| T03 | Immediate disqualification | Pending execution | Not run | Record after testing |
-| T09 | Specialist route | Pending execution | Not run | Record after testing |
-| T11 | Capture out-of-order answers | Pending execution | Not run | Record after testing |
-
-**Testing integrity:** Replace the pending entries with observed outcomes from actual test calls. Report pass/fail results only after reviewing the corresponding transcripts or call logs.
-
-## 🛡️ 15. Error Handling and Edge Cases
-
-The agent must be robust to natural conversational variation.
-
-### Out-of-Order Responses
-
-Capture every relevant fact from the response and continue with the first missing checklist item.
-
-### Corrections
-
-If the customer changes a previous answer, update the state using the latest clear correction and revalidate the applicable rules.
-
-### Ambiguous Answers
-
-Ask a focused clarification rather than assuming the answer is eligible.
-
-### Interruptions
-
-Respond briefly to the customer's immediate question and resume the qualification process without losing the current state.
-
-### Unavailable Product Information
-
-Use only verified information available in the configured product context. If the exact interest rate or another product detail is unavailable, explain that a senior loan expert will clarify it.
-
-### Call or API Failure
-
-Where supported by the platform, handle failed calls, timeouts, and unavailable services gracefully. Avoid reporting a successful handoff unless the platform confirms it.
-
-### Incomplete Conversations
-
-If a call ends before all required checklist items are captured, record the qualification as incomplete rather than treating the customer as qualified.
-
-## 🔐 16. Responsible AI and Limitations
-
-### Responsible AI Principles
-
-- Clearly identify the caller and the purpose of the conversation.
-- Use approved customer-contact practices and respect applicable consent and opt-out requirements.
-- Protect customer information and restrict access to recordings and transcripts.
-- Avoid unnecessary collection of personal or financial information.
-- Never guarantee loan approval or disbursal.
-- Never invent interest rates, fees, or eligibility criteria.
-- Keep responses concise, respectful, and easy to understand.
-- Route unresolved or specialist-specific questions to an appropriate human expert.
-
-### Limitations
-
-- Eligibility outcomes depend on the accuracy of customer responses and the supplied business rules.
-- Voice recognition may misinterpret amounts, property types, or tenure.
-- A prompt alone cannot guarantee deterministic enforcement in every interaction.
-- Final lending decisions may require additional verification and formal underwriting.
-- The agent cannot provide unsupported product details that are absent from its approved knowledge source.
-- Call recordings and transcripts require appropriate handling, access controls, and retention practices.
-
-## 🚀 17. Future Enhancements
-
-Potential improvements include:
-
-- **Multilingual Support:** Support additional configured languages and natural language switching where permitted.
-- **CRM Integration:** Save qualification outcomes and customer follow-up requirements in an approved CRM.
-- **Analytics Dashboard:** Track qualification rates, disqualification reasons, call completion, and handoff outcomes.
-- **Improved Speech Recognition:** Improve recognition of Indian accents, financial amounts, and code-switched speech.
-- **Automated Regression Testing:** Run repeatable test suites whenever the system prompt or eligibility logic changes.
-- **Structured Rule Engine:** Separate business-rule enforcement from free-form language generation.
-- **Monitoring and Observability:** Track tool failures, incomplete calls, incorrect classifications, and handoff errors.
-- **Human Feedback Loop:** Use reviewed transcripts to identify weaknesses and improve prompt reliability.
-
-## 🏁 18. Conclusion
-
-The SalesAgents AI LAP Voice Agent project demonstrates how prompt engineering can be applied to a practical financial-services use case.
-
-The solution is designed to combine natural voice interaction, contextual memory, sequential information capture, explicit eligibility rules, exception handling, and controlled human handoff.
-
-The central engineering principle is to **extract customer information first, validate mandatory conditions, update the qualification state, and then ask the next missing question**.
-
-By pairing a structured system prompt with clear business rules and evidence-based testing, the project aims to demonstrate reliable, explainable, and customer-friendly preliminary loan qualification.
+| `README.md` | Main project documentation |
+| `prompts/` | Contains the system prompt and conversation instructions |
+| `config/` | Contains eligibility rules and other configurable settings |
+| `src/` | Contains application logic, if developed separately |
+| `tests/` | Contains test cases and test results |
+| `recordings/` | Documents or stores authorized test audio recordings |
+| `transcripts/` | Stores approved test conversation transcripts |
+| `docs/` | Contains architecture diagrams and supporting documentation |
+| `.env.example` | Shows the required environment variable names without exposing secrets |
+| `.gitignore` | Prevents sensitive or unnecessary files from being committed |
+| `requirements.txt` | Lists Python dependencies, if applicable |
+
+**For a prompt-only assignment:** A simpler structure may be more accurate:
+
+```text
+salesagents-ai-lap-voice-agent/
+├── README.md
+├── system_prompt.md
+├── test_scenarios.md
+├── test_results.md
+├── transcripts/
+└── recordings/
+```
+
+Do not create empty folders merely to make the repository look larger.
 
 ---
 
-<p align="center">
+## ⚙️ 8. Configuration
 
-  **SalesAgents AI × Home Credit LAP**
+### 8.1 Runtime Variables
 
-  *Designed with structured thinking. Built for conversational intelligence. Evaluated through testing.*
+The assignment provides the following variables for contextualizing the agent.
 
-</p>
+| Variable | Purpose | Example |
+|---|---|---|
+| `company_name` | Company represented by the agent | Home Credit |
+| `customer_name` | Customer's name, if available | Customer name from approved test data |
+| `agent_name` | Configured agent name | Agent name supplied at runtime |
+| `agent_gender` | Configured agent gender for appropriate self-reference or voice settings | Value supplied at runtime |
+| `current_date` | Current date for contextual responses | Runtime-provided date |
+| `current_day` | Current day | Runtime-provided day |
+| `current_time` | Current time | Runtime-provided time |
+| `additional_context_from_rag` | Approved retrieved information | Product FAQ or approved business information |
+| `language_to_speak` | Language used for the conversation | Configured language |
+| `conversation_history` | Previous conversation messages | Stored dialogue |
+| `customer_utterance` | Latest customer response | Latest transcribed customer message |
+
+The agent should use the provided values rather than hardcoding customer details, agent identity, dates, or language.
+
+### 8.2 Eligibility Rules
+
+The following is an illustrative JSON configuration for implementations that support external rule configuration.
+
+```json
+{
+  "product": "Loan Against Property",
+  "company": "Home Credit",
+  "maximum_loan_amount_inr": 7500000,
+  "accepted_property_types": [
+    "residential",
+    "commercial",
+    "industrial"
+  ],
+  "disallowed_property_types": [
+    "agricultural"
+  ],
+  "accepted_ownership_types": [
+    "sole",
+    "joint"
+  ],
+  "original_property_documents_required": true,
+  "accepted_occupations": [
+    "salaried",
+    "self-employed"
+  ],
+  "accepted_income_modes": [
+    "bank"
+  ],
+  "minimum_tenure_years": 3,
+  "maximum_tenure_years": 15,
+  "property_market_value_minimum": null
+}
+```
+
+**Important:** This example is a proposed configuration, not proof that the project already uses JSON. A `null` market-value threshold means no minimum threshold has been specified in the assignment; it does not mean the property has no value requirement under any future lender policy.
+
+### 8.3 Conversation State Management
+
+The agent should maintain a structured state for each conversation.
+
+Example:
+
+```json
+{
+  "property_type": null,
+  "ownership_type": null,
+  "original_documents_available": null,
+  "requested_loan_amount": null,
+  "occupation": null,
+  "income_mode": null,
+  "property_market_value": null,
+  "loan_tenure_years": null,
+  "existing_property_loan": null,
+  "emi_reduction_requested": null,
+  "callback_time": null,
+  "qualification_status": "in_progress",
+  "missing_fields": []
+}
+```
+
+### 8.4 Recommended Processing Logic
+
+For every new customer response, the agent should:
+
+1. **Extract** all relevant facts from the latest utterance.
+2. **Validate** the facts against the business rules.
+3. **Update** the conversation state.
+4. **Check** whether specialist routing or immediate disqualification applies.
+5. **Identify** the first missing eligibility item.
+6. **Ask** the next relevant question without repeating previously answered questions.
+7. **Complete** the assessment only when all required fields are available and no disqualifying condition remains.
+
+### 8.5 Configuration Principles
+
+- Never assume missing customer information.
+- Do not treat an ambiguous response as confirmed information.
+- Resolve contradictory answers by politely asking for clarification.
+- Do not invent interest rates, fees, approval guarantees, or minimum property-value thresholds.
+- Do not treat a preliminary qualification result as final approval.
+- If a required variable or knowledge-base answer is unavailable, follow a safe fallback rather than fabricating information.
+- Apply specialist routing before continuing the standard qualification checklist when the customer requests an existing-loan transfer or EMI reduction.
+
+---
+
+## 🖼️ 9. Screenshots and Sample Conversations
+
+This section should contain genuine screenshots and supporting evidence from your implementation.
+
+### 9.1 Recommended Screenshots
+
+| Screenshot | What It Should Demonstrate |
+|---|---|
+| Agent Configuration | The configured AI voice agent or platform |
+| System Prompt | The main instructions governing the agent |
+| Conversation Test | A simulated customer interaction |
+| Eligibility Validation | A test showing the rules being applied |
+| Successful Qualification | A completed preliminary qualification scenario |
+| Disqualification Scenario | A test involving an agricultural property or cash income |
+| Specialist Handoff | A test involving an existing property loan or EMI reduction |
+| Test Results | Evidence of the scenarios executed and their outcomes |
+
+### 9.2 Add Screenshots to GitHub
+
+Save the screenshots in an `assets/` folder or another folder used by your repository.
+
+Example:
+
+```text
+assets/
+├── agent-configuration.png
+├── conversation-test.png
+├── eligibility-test.png
+└── test-results.png
+```
+
+Then embed them in your README using Markdown:
+
+```markdown
+### Agent Configuration
+
+![AI Agent Configuration](assets/agent-configuration.png)
+
+### Conversation Test
+
+![Conversation Test](assets/conversation-test.png)
+
+### Eligibility Validation
+
+![Eligibility Validation](assets/eligibility-test.png)
+```
+
+Replace these example paths with your actual image paths. Do not leave broken image links in the final repository.
+
+### 9.3 Audio Recordings and Transcripts
+
+The assignment may require test audio recordings, transcripts, call logs, and public recording links. Include them only when they have been generated and can be shared appropriately.
+
+A useful transcript format is:
+
+| Field | Details |
+|---|---|
+| Test ID | T01 |
+| Scenario | Eligible customer |
+| Customer Input | Responses provided during the simulated call |
+| Agent Response | Corresponding agent replies |
+| Expected Outcome | Preliminary qualification |
+| Actual Outcome | Result observed during testing |
+| Status | Pass / Fail / Not Run |
+
+For privacy and security, use synthetic customer information in public examples unless disclosure has been explicitly authorized.
+
+---
+
+## 🧪 10. Testing
+
+Testing verifies that the AI voice agent follows the required business rules, maintains conversation state, and responds appropriately to different customer situations.
+
+### 10.1 Test Scenarios
+
+| Test ID | Scenario | Expected Result |
+|---|---|---|
+| T01 | All eligibility criteria are satisfied | Complete preliminary qualification |
+| T02 | Agricultural property | Disqualify under the stated property rule |
+| T03 | Residential property | Accept property type |
+| T04 | Commercial property | Accept property type |
+| T05 | Industrial property | Accept property type |
+| T06 | Sole ownership | Accept ownership type |
+| T07 | Joint ownership | Accept ownership type |
+| T08 | Original documents unavailable | Disqualify |
+| T09 | Requested amount is ₹40 lakh | Continue with the requested amount |
+| T10 | Requested amount exceeds ₹75 lakh and customer agrees to ₹75 lakh | Continue using ₹75 lakh |
+| T11 | Requested amount exceeds ₹75 lakh and customer declines the limit | End the standard qualification flow |
+| T12 | Salaried customer with bank-received income | Accept occupation and income mode |
+| T13 | Self-employed customer with bank-received income | Accept occupation and income mode |
+| T14 | Customer receives income in cash | Disqualify |
+| T15 | Customer provides property market value | Record the value without inventing a minimum threshold |
+| T16 | Tenure is below 3 years | Disqualify |
+| T17 | Tenure is exactly 3 years | Accept tenure |
+| T18 | Tenure is between 3 and 15 years | Accept tenure |
+| T19 | Tenure is exactly 15 years | Accept tenure |
+| T20 | Tenure exceeds 15 years | Disqualify |
+| T21 | Existing loan against the property | Route to loan-transfer specialist |
+| T22 | Customer wants EMI reduction | Route to loan-transfer specialist |
+| T23 | Customer is busy | Ask for callback time and end the current call |
+| T24 | Customer provides information out of order | Store the information and avoid repeating questions |
+| T25 | Customer provides multiple answers in one response | Extract and store all relevant facts |
+| T26 | Customer gives contradictory information | Ask for clarification |
+| T27 | Customer gives an ambiguous answer | Clarify before marking the field complete |
+| T28 | Customer asks about interest rates not present in approved context | Avoid inventing rates; use a safe response |
+| T29 | Customer interrupts the checklist | Respond briefly and resume the first missing item |
+| T30 | Required information is incomplete | Continue asking for missing details |
+| T31 | Customer asks an unrelated question | Respond briefly when possible and return to the qualification flow |
+| T32 | All required information is collected and rules pass | Communicate preliminary qualification, not final approval |
+
+### 10.2 Boundary Testing
+
+Boundary tests are especially important because several rules use numerical limits.
+
+| Parameter | Test Input | Expected Result |
+|---|---:|---|
+| Maximum loan amount | ₹75,00,000 | Within the stated limit |
+| Maximum loan amount | ₹75,00,001 | Explain the limit and ask whether the customer wants to proceed with ₹75 lakh |
+| Minimum tenure | 2 years | Disqualify |
+| Minimum tenure | 3 years | Accept |
+| Maximum tenure | 15 years | Accept |
+| Maximum tenure | 16 years | Disqualify |
+
+### 10.3 Test Results Template
+
+Record the actual outcome only after running each test.
+
+| Test ID | Expected Result | Actual Result | Status | Remarks |
+|---|---|---|---|---|
+| T01 | Preliminary qualification | Pending | Not Run | To be tested |
+| T02 | Disqualification | Pending | Not Run | To be tested |
+| T08 | Disqualification | Pending | Not Run | To be tested |
+| T10 | Continue with ₹75 lakh | Pending | Not Run | To be tested |
+| T14 | Disqualification | Pending | Not Run | To be tested |
+| T16 | Disqualification | Pending | Not Run | To be tested |
+| T21 | Specialist routing | Pending | Not Run | To be tested |
+| T23 | Callback handling | Pending | Not Run | To be tested |
+| T24 | Store out-of-order responses | Pending | Not Run | To be tested |
+| T28 | Safe response without fabricated rates | Pending | Not Run | To be tested |
+
+### 10.4 Testing Checklist
+
+- [ ] Agent introduces the product correctly.
+- [ ] All seven eligibility checklist items are covered, including both occupation and income mode.
+- [ ] Information provided out of order is remembered.
+- [ ] Previously answered questions are not repeated unnecessarily.
+- [ ] Agricultural property is handled correctly.
+- [ ] Original document availability is validated.
+- [ ] Loan amounts above ₹75 lakh trigger the appropriate clarification.
+- [ ] Cash income is handled according to the rules.
+- [ ] Tenure boundaries are tested.
+- [ ] Existing-loan and EMI-reduction requests trigger specialist routing.
+- [ ] Busy customers are offered a callback.
+- [ ] Ambiguous and contradictory answers are clarified.
+- [ ] Unsupported claims and invented interest rates are avoided.
+- [ ] Final messaging distinguishes preliminary qualification from loan approval.
+
+---
+
+## 🤝 11. Contributing
+
+Contributions and suggestions can help improve the agent's conversational quality, business-rule accuracy, and testing coverage.
+
+### How to Contribute
+
+1. Review the existing project documentation.
+2. Identify a specific issue or improvement.
+3. Create a branch for the proposed change.
+4. Make the change while preserving the stated business rules.
+5. Test the updated prompt or application.
+6. Document the test results.
+7. Submit a pull request describing the changes.
+
+Example commands:
+
+```bash
+git checkout -b feature/improve-conversation-flow
+git add .
+git commit -m "Improve LAP conversation flow"
+git push origin feature/improve-conversation-flow
+```
+
+### Contribution Guidelines
+
+- Keep eligibility rules consistent with the assignment.
+- Do not invent additional qualification criteria.
+- Preserve customer privacy.
+- Avoid committing API keys, secrets, or confidential recordings.
+- Add tests for changes to qualification logic.
+- Document any new configuration requirements.
+- Clearly distinguish proposed enhancements from implemented features.
+
+---
+
+## 📄 12. License
+
+This project was created for an AI Voice Agent design and qualification assignment.
+
+Unless a specific license has been selected and included in the repository, the project should not be described as having an open-source license.
+
+If you intend to publish the project publicly, choose an appropriate license and add a `LICENSE` file after confirming that you have permission to share all included code, prompts, recordings, and other materials.
+
+Example wording if the repository is an assignment submission:
+
+> This repository is intended for educational and evaluation purposes. All third-party tools, models, trademarks, and services remain the property of their respective owners. The presence of Home Credit branding or product references does not imply official endorsement or affiliation.
+
+---
+
+## 🚀 Future Enhancements
+
+The following features could be considered in future versions, depending on platform capabilities and business requirements:
+
+- Multilingual customer conversations.
+- Improved speech recognition for regional accents.
+- CRM integration for customer details and call outcomes.
+- Automated callback scheduling.
+- Structured analytics and qualification dashboards.
+- Enhanced call summaries and reporting.
+- Improved handling of ambiguous or contradictory responses.
+- Integration with an approved knowledge base.
+- Automated regression testing for prompt updates.
+- Human-agent handoff with relevant conversation context.
+
+These are proposed enhancements and should not be presented as implemented unless they have been built and tested.
+
+---
+
+## 🏁 Conclusion
+
+The **SalesAgents AI — Home Credit Loan Against Property Voice Agent** demonstrates how conversational AI and structured prompt engineering can support preliminary customer qualification through outbound voice interactions.
+
+By combining context-aware dialogue, conversation-state management, predefined eligibility rules, and appropriate routing, the agent aims to deliver a consistent and customer-friendly qualification experience.
+
+The primary focus is not merely to ask questions, but to understand customer responses, remember previously provided information, apply the rules accurately, and determine the appropriate next step without making unsupported claims.
+
+**Built with a focus on structured conversations, reliable qualification logic, and responsible AI-driven customer engagement.**
+
