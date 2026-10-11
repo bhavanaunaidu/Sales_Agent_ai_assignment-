@@ -1,20 +1,5 @@
 # 🚀 SalesAgents AI — Home Credit Loan Against Property (LAP) Voice Agent
 
-<p align="center">
-
-  **AI Intern | Prompt Engineering Assignment**
-
-  *An intelligent, context-aware AI voice agent for preliminary loan qualification.*
-
-  ![AI Voice Agent](https://img.shields.io/badge/AI-Voice%20Agent-7C3AED?style=for-the-badge)
-  ![Prompt Engineering](https://img.shields.io/badge/Prompt%20Engineering-LLM-2563EB?style=for-the-badge)
-  ![Domain](https://img.shields.io/badge/Domain-FinTech-0F766E?style=for-the-badge)
-  ![Testing](https://img.shields.io/badge/Testing-Scenario%20Based-F59E0B?style=for-the-badge)
-
-</p>
-
----
-
 ## 📑 Table of Contents
 
 - [1. Project Overview](#-1-project-overview)
