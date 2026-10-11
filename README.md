@@ -3,7 +3,7 @@
 ## **🎯 Project Objectives**
 
 **Project Name:** Home Credit LAP AI Voice Agent
-- **Platform:** Retell AI [Open Retell AI](https://www.retellai.com/)
+- **Platform:** [Retell AI](https://www.retellai.com/)
 - **Purpose:** Assess customers' preliminary eligibility for a Loan Against Property.
 - **Maximum Loan Offer:** ₹75 lakh
 - **Build an AI Voice Agent:** Configure the agent using Retell AI.
@@ -94,10 +94,29 @@ Eligibility Decision
              ↓
            END
 
-## **🧪 Testing Scenarios**
+## **🤖 Prompt Sales_Agent_Ai
+ It demonstrates the use of AI to handle customer communication, respond to queries, and assist with sales-related tasks.
+For the detailed implementation, prompts, and assignment documentation, please refer to the project files in the link below.
+[Prompt Sales_Agent_Ai](https://github.com/bhavanaunaidu/Sales_Agent_ai_assignment-/blob/main/SalesAgents%20AI)
+
+## **🧪 Testing Scenarios
 
 - **Test Case 0:** Initalised state.
+  Create an internal state like:
+    a.property_type = UNKNOWN
+    b.ownership_status = UNKNOWN
+    c.documents_available = UNKNOWN
+    d.loan_amount = UNKNOWN
+    e.occupation = UNKNOWN
+    f.income_mode = UNKNOWN
+    g.market_value = UNKNOWN
+    h.tenure = UNKNOWN
+  
 - **Test Case 1:** Fully eligible customer.
+  Customer meets every rule. Residential flat, sole owner, originals at home, 50 lakh loan, salaried with bank income, property worth 1 crore, 10-year tenure.
+  Explanation :All 7 questions asked once, then the senior loan expert callback message and the call ends.
+  
+  
 - **Test Case 2:** Customer with agricultural property.
 - **Test Case 3:** Customer receiving income only in cash.
 - **Test Case 4:** Customer without original property documents.
